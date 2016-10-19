@@ -43,29 +43,9 @@ def get_profit_data():
 		(randrange(200, 1000), randrange(10, 60), datetime.now())
 	]
 
-# def initial_dp_list():
-# 	""" retrive product list set on DB from db """
-# 	return [
-# 		(10, "IPhone 5S", randrange(10, 150), randrange(300, 500)),
-# 		(11, "Samsung Galaxy", randrange(10, 150), randrange(300, 500)),
-# 		(12, "PlayStation 4", randrange(10, 150), randrange(300, 500)),
-# 		(13, "XBox One", randrange(10, 150), randrange(300, 500)),
-# 		(14, "Pebble Watch", randrange(10, 150), randrange(300, 500)),
-# 		(15, "Apple watch", randrange(10, 150), randrange(300, 500)),
-# 		(16, "Beats headphones", randrange(10, 150), randrange(300, 500)),
-# 		(17, "Macbook Pro", randrange(10, 150), randrange(300, 500)),
-# 		(18, "Alienware 4AG", randrange(10, 150), randrange(300, 500))
-# 	]
-
-
 
 
 ########################### MACHINE LEARNING ###################
-#from scipy.stats import bernoulli
-
-
-#from scipy.stats import bernoulli
-
 
 final_list=[]
 prft_id=0
@@ -98,9 +78,6 @@ class plot:
 
 
 class bids:
-    # cur
-    # tot
-    #total=0
 
     'Common base class for all bids'
     def __init__ (self,cur=None,tot=None,id=None):
@@ -147,15 +124,11 @@ class choice:
         #zerro_array=[0,0,0,0,0]
         self.id=id
         self.prev_choice=0
-        self.probability=[0,0,0,0,0] #numpy.zeros(5)
-        self.propensity=[0,0,0,0,0] #numpy.zeros(5)
-        self.seller_profit=[0,0,0,0,0] #numpy.zeros(5)
+        self.probability=[0,0,0,0,0] 
+        self.propensity=[0,0,0,0,0] 
+        self.seller_profit=[0,0,0,0,0]
 
 class inventory:
-    # cur
-    # maxi
-    # t0
-    #total=0
 
     'Common base class for all inventory'
 
@@ -199,9 +172,6 @@ class inventory:
 
 
 class revenue:
-    # dp
-    # cp
-   # total=0
 
 
     'Common base class for all revenue'
@@ -247,11 +217,6 @@ class revenue:
 
 
 class price:
-    # cost
-    # bid_min
-    # bid_max
-    # selling
-
 
     'Common base class for all price'
 
@@ -468,9 +433,7 @@ def bidding_compute(item, buyer_offer,customer_loyalty,buyer_demand,profit_margi
 
 
     # Probabilistically select a multinomial random variable [1:K] with probability vector. Final choice is the random variable minus 1 (array starts with 0 index)
-    #a=[]
-    a=multinomial(1, probability, size=1) # np = numpy
-    #choice_index=a.index(1)
+    a=multinomial(1, probability, size=1)
 
     for x in xrange(0,5):
         if(a[0][x]==1):
@@ -564,8 +527,7 @@ def final_dp_list(arr):
 
 
 def real_time_data():
-    #final_list=[7,2,3,4,5,6]
-    #global final_list
+
     data=[]
     for i in xrange(0,len(final_list)):
         x=[]
@@ -578,20 +540,7 @@ def real_time_data():
         data.append(x)
     print "data",data
     return data
-# def real_time_data():
-#     #final_list=[19]
-#     data=[]
-#     for i in xrange(0,len(final_list)):
-#         x=[]
-#         q=type('product', (object,), json.loads(d.get(db_name,'product',final_list[i])))
-#         x.append(q.id)
-#         x.append(str(q.name))
-#         x.append(q.bids['tot'])
-#         x.append(q.bids['cur'])
-#         x.append(int (q.revenue['dp']))
-#         data.append(x)
-#     print data
-#     return data
+# 
 
 def bidding(item, buyer_offer,customer_loyalty,buyer_demand,profit_margin):
     it=d.get1(db_name,'product',item)
@@ -604,25 +553,6 @@ def test():
     bidding(17,570,0,2,15)
     real_time_data()
     return
-
-#test()
-
-#SEQUENCE OF OPERATIONS:
-
-# 1) Call to DB for revenue and profit margin decisions by frontend
-# 2) Update profit_margin value
-# 3) Call to initial_dp_list() by frontend, call selection for each item, return list of items to final_dp_list(<arr>) and update DB
-# 4) For those items available for DP:  Receive consumer loyalty, bid offer,  product and quantity demanded
-# 5) Each customer submits 2 bids sequentially, bidding(item) called and 0/1 decision returned
-
-
-
-
-
-
-
-############################################################################################
-
 
 
 #### ROUTES ####
@@ -639,7 +569,6 @@ def login():
 
 @app.route("/rtproduct")
 def product():
-	#profit_data = get_profit_data()
 
 	return render_template("rtproduct.html",data=real_time_data())
 
@@ -651,7 +580,6 @@ def profit():
         margins = profit_margin
         if not profit_margin:
             return "Error!"
-		# input_profit_margin(profit_margin)
         return "Profit margin: {}. Saved! <a href='/profits'>Back</a>".format(profit_margin)
     profit_data = get_profit_data()
     return render_template("profits.html", data=profit_data)
@@ -665,7 +593,6 @@ def recommended():
 		print selected_ids
 		final_dp_list(selected_ids)
 		realtime_dat.extend(real_time_data())
-		# final_dp_list(selected_ids)
 		return "Your preferences have been saved! <a href='/dashboard'>Back</a>"
 	print init_list
 	return render_template("dashboard.html", data=init_list)
@@ -674,7 +601,6 @@ def recommended():
 @app.route('/analytics')
 def analytics():
 	bids_data = get_bids_data()
-	#cust_data = [156, 51, 101]
 	cust_data = [cust_detail['0'],cust_detail['1'],cust_detail['2']]
 
 	return render_template("analytics.html",
@@ -695,31 +621,16 @@ def customer():
 
 @app.route('/bidstatus/<int:prod_id>,<int:bidding_price>,<int:loyalty_level>,<int:quantity>', methods=['GET'])
 def get_bidstatus(prod_id,bidding_price,loyalty_level,quantity):
-    #product = [product for product in products if product['id'] == prod_id]
-    #Placeholder
-    #product = Dbsearch(prod_id)
+
     global bidstatus, total_bids,total_accepted,total_profit
-    #print bidding_price, loyalty_level
-
-
-    #Placeholder
-    #if Optimal_bid_price == compute_opt_bid(loyalty_level, prod_id) :
-    #	return jsonify({'Bid Status': 1})
-    #else:
-    #	jsonify({'Bid Status': 0})
     print "margins",margins
     bidstatus= bidding(prod_id,bidding_price,loyalty_level,quantity,margins)
-    #bidstatus = bidding(prod_id,bidding_price,loyalty_level,quantity,profitmargin)
-    #print bidstatus
-    #bidstatus = 1
     total_bids = total_bids+1
     if bidstatus == 1:
     	total_accepted = total_accepted+1
     	total_profit = total_profit + bidding_price
     	cust_detail[str(loyalty_level)]=cust_detail[str(loyalty_level)]+1
 
-    #if len(product) == 0:
-     #   abort(404)
     return jsonify({'Bid Status': bidstatus})
 
 @app.route('/products', methods=['GET'])

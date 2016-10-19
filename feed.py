@@ -51,8 +51,6 @@ def compute():
 
         p.price.cost=random.normalvariate(random.randrange(500+(x%20),1550+(x%20),30),random.randrange(50+(x%20),105+(x%20),10))
 
-        #p.price.selling=random.normalvariate(random.randrange(600+(x%20),1650+(x%20),30),random.randrange(50+(x%20),105+(x%20),10))
-
         p.inventory.t0=p.inventory.cur
         #Inserting into the db
         print d.insert(db_name,'inventory',p.inventory.to_JSON())
@@ -63,11 +61,6 @@ def compute():
         print d.insert(db_name,'customer',c.to_JSON())
         print d.insert(db_name,'plot',q.to_JSON())
         print d.insert(db_name,'customer',c.to_JSON())
-
-        # print d.update_with_date_random(db_name,'revenue',p.revenue.to_JSON(),p.id-1)
-        # print d.update_with_date_random(db_name,'price',p.price.to_JSON(),p.id-1)
-        # print d.update_with_date_random(db_name,'bids',p.bids.to_JSON(),p.id-1)
-        # print d.update_with_date_random(db_name,'product',p.to_JSON(),p.id-1)
 
 
     return

@@ -41,17 +41,10 @@ def get_products():
 @app.route('/products/bidstatus/<int:prod_id>,<int:bidding_price>,<int:loyalty_level>', methods=['GET'])
 def get_bidstatus(prod_id,bidding_price,loyalty_level):
     product = [product for product in products if product['id'] == prod_id]
-    #Placeholder
-    #product = Dbsearch(prod_id)
     global bidstatus
     print bidding_price, loyalty_level
 
     Optimal_bid_price = 27
-    #Placeholder
-    #if Optimal_bid_price == compute_opt_bid(loyalty_level, prod_id) :
-    #	return jsonify({'Bid Status': 1})
-    #else:
-    #	jsonify({'Bid Status': 0})
 
     if Optimal_bid_price == bidding_price:
     	bidstatus = 1
@@ -66,16 +59,7 @@ def get_bidstatus(prod_id,bidding_price,loyalty_level):
 @app.route('/products/payment/<int:prod_id>,<int:cust_payment_info>,<int:bidding_price>', methods=['GET'])
 def get_paymentStatus(prod_id,cust_payment_info,bidding_price):
     product = [product for product in products if product['id'] == prod_id]
-    #Placeholder
-    #product = Dbsearch(prod_id)
     print cust_payment_info, bidding_price
-
-    #Placeholder
-    #if(Payment_gateway(cust_payment_info,cust_bid_price)==1):
-	#	UpdateDB(prod_id, cust_bid_price, 1)
-	#	return jsonify({'Payment status': 1})
-	#else:
-	#	return jsonify({'Payment status': 0})
 
     if len(product) == 0:
         abort(404)
