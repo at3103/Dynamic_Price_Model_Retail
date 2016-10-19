@@ -13,3 +13,7 @@ $ python app.py
 - `\analytics` Analytics
 - `\profits` Profit Margin
 - `\customer` Customer
+
+
+###Demo
+    https://youtu.be/fwhyzsxhack 
