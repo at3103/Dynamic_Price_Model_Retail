@@ -1,1 +1,15 @@
-# Dynamic_Price_Model_Retail
+### Dynamic Pricing
+
+To run
+
+```
+$ python app.py
+```
+
+### URLs
+
+- `\` Login
+- `\products` Dashboard
+- `\analytics` Analytics
+- `\profits` Profit Margin
+- `\customer` Customer
